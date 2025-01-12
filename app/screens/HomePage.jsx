@@ -13,8 +13,11 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-function HomePage(props) {
+function HomePage() {
+  const navigation = useNavigation(); // Hook to use navigation
+
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -38,10 +41,13 @@ function HomePage(props) {
   };
 
   const renderArticle = ({ item }) => (
-    <View style={styles.article}>
+    <TouchableOpacity
+      style={styles.article}
+      onPress={() => navigation.navigate("ArticleDetails", { article: item })} // Navigate to ArticleDetails screen
+    >
       <Text style={styles.articleTitle}>{item.title}</Text>
       <Text style={styles.articleDescription}>{item.description}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
